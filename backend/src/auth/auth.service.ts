@@ -20,15 +20,12 @@ export class AuthService {
   private genToken(user: any) {
     const payload = { username: user.username, sub: user.id };
     return {
-      access_token: this.jwtService.sign(payload)
+      "access-token": this.jwtService.sign(payload)
     };
   }
 
   private async validateUser(loginCredentials: LoginCredentialsDto) {
-    const user = await this.userService.findOne(
-      loginCredentials.usernameOrEmail,
-      loginCredentials.usernameOrEmail,
-    );
+    const user = await this.userService.findOne(loginCredentials.usernameOrEmail);
     try {
       if (
         user &&
@@ -45,14 +42,19 @@ export class AuthService {
     return null;
   }
 
-  async register(newUser: RegisterCredentialsDto) {
-    const user = await this.userService.findOne(
-      newUser.username,
-      newUser.email,
-    );
+  private async validateNewUser(newUser: RegisterCredentialsDto) {
+    let user = await this.userService.findOne(newUser.username);
     if (user) {
-      throw new ConflictException('Username already exists');
+      throw new ConflictException('Username already taken');
     }
+    user = await this.userService.findOne(newUser.email);
+    if (user) {
+      throw new ConflictException('Email already taken');
+    }
+  }
+
+  async register(newUser: RegisterCredentialsDto) {
+    await this.validateNewUser(newUser);
     const { hash, salt } = genPassword(newUser.password);
     const newUserData = {
       username: newUser.username,

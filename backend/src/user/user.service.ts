@@ -12,20 +12,12 @@ export class UserService {
     return user.save();
   }
 
-  async findOne(username?: string, email?: string) {
+  async findOne(usernameOrEmail: string) {
     try {
-      let user = null;
-      if (username) {
-        user = await this.userModel.findOne({
-          username: username,
-        });
-      }
-
-      if (user == null && email) {
-        user = await this.userModel.findOne({ email: email });
-      }
-
-      return user;
+      // find user by username or email
+      return await this.userModel.findOne({
+        $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+      });
     } catch (err) {
       throw new NotAcceptableException(err);
     }

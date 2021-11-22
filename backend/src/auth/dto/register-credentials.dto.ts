@@ -10,7 +10,7 @@ export class RegisterCredentialsDto {
   @IsNotEmpty()
   password: string;
 
-  @IsEmail()
+  @IsEmail({}, { message: 'email must be valid' }) 
   @IsNotEmpty()
   email: string;
 

@@ -1,0 +1,8 @@
+body {
+  background-color: #224957;
+  background-image: url('./image/Vector-lower-dark.png'), url('./image/Vector-upper-dark.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom; 
+  background-size: 100%;
+}

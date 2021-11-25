@@ -27,9 +27,9 @@ export class TodoService {
 
   async create(createTodoDto: CreateTodoDto, payload: any) {
     const user = await this.findUser(payload.userId);
-    user.todos.unshift(createTodoDto);
+    user.todos.push(createTodoDto);
     await user.save(); 
-    return user.todos[0];
+    return user.todos[user.todos.length - 1];
   }
 
   async findAll(payload: any) {
@@ -53,8 +53,9 @@ export class TodoService {
   async remove(id: string, payload: any) {
     const user = await this.findUser(payload.userId);
     const todo = await this.findTodo(id, user);
+    const title = todo.title;
     todo.remove();
     await user.save();
-    return 'Todo deleted';
+    return `Deleted ${title}`;
   }
 }

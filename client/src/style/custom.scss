@@ -1,0 +1,29 @@
+$primary-color: #20DF7F;
+$error-color: #d32f2f;
+$pallet-onSurface: rgba(255, 255, 255, 0.109);
+$border-radius: 10px;
+
+:export {
+  primaryColor: $primary-color;
+  errorColor: $error-color;
+  palletOnSurface: $pallet-onSurface;
+  borderRadius: $border-radius;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  row-gap: 1.5rem;
+}
+
+.form-container {
+  @extend .form;
+  height: 100vh;
+}
+
+.msg-wrapper, .MuiFormHelperText-root {
+  white-space: pre-wrap;
+}

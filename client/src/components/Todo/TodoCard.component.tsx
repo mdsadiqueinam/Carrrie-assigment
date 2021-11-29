@@ -99,16 +99,11 @@ export default function TodoCard(_props: TodoCardProps) {
           </CardActionArea>
         }
         subheader={
-          <Box sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-          }}>
-            <Typography variant="body2" color="textSecondary" component="span">
+          <Box className={"todo-detail"}>
+            <Typography variant="body2" color="textSecondary" component="span"  >
               {new Date(todo.dueDate).toString()}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="span">
+            <Typography variant="body2" color="textSecondary" component="span" >
               Priority:{" "}
               <Typography
                 variant="body2"

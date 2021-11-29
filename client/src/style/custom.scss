@@ -27,3 +27,18 @@ $border-radius: 10px;
 .msg-wrapper, .MuiFormHelperText-root {
   white-space: pre-wrap;
 }
+
+.todo-detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media only screen and (max-width: 950px) {
+  .todo-detail {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 0.6rem;
+  }
+}

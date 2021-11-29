@@ -63,18 +63,20 @@ export default function Todo() {
           <Tab label="Pending Todo" {...a11yProps(1)} />
           <Tab label="Closed Todo" {...a11yProps(2)} />
 
-          <Button variant="text" sx={{ marginLeft: "auto" }} onClick={logout} >Logout</Button>
+          <Button variant="text" sx={{ marginLeft: "auto" }} onClick={logout}>
+            Logout
+          </Button>
         </Tabs>
       </Box>
       {loading && <LinearProgress color="secondary" />}
       <TabPanel value={value} index={0}>
-        <TodoWithData status={Status.OPEN} onUpdate={handleUpdateTodo}/>
+        <TodoWithData status={Status.OPEN} onUpdate={handleUpdateTodo} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <TodoWithData status={Status.PENDING} onUpdate={handleUpdateTodo}/>
+        <TodoWithData status={Status.PENDING} onUpdate={handleUpdateTodo} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <TodoWithData status={Status.CLOSED} onUpdate={handleUpdateTodo}/>
+        <TodoWithData status={Status.CLOSED} onUpdate={handleUpdateTodo} />
       </TabPanel>
 
       <Fab

@@ -1,11 +1,13 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
 import { axiosInstance } from "config/axios.config";
 import { ITodo, ITodoForm, IUpdateTodoForm } from "interface/Todo.interface";
+import { useAuth } from 'context/Auth.context';
+import { HttpStatusCode } from 'utils/HttpStatusCode.enum';
 
 interface PayloadProps {
   todos?: Array<ITodo>;
   loading?: boolean;
-  error?: string | Array<string>;
+  error?: any;
 }
 
 interface IOptions {
@@ -58,11 +60,27 @@ function todoReducer(
 }
 
 function TodoProvider(props: any) {
+  const { logout } = useAuth();
   const [state, dispatch] = useReducer(todoReducer, initialState);
 
   const loading = () => {
     dispatch({ type: "LOADING", payload: { loading: true } });
   };
+
+  const onError = (err: any) => {
+    dispatch({
+      type: "ERROR",
+      payload: {
+        loading: false,
+        error: err?.response?.data
+          ? err.response.data
+          : "Something Went Wrong",
+      },
+    });
+    if (err?.response?.data?.statusCode === HttpStatusCode.Unauthorized) {
+      logout();
+    }
+  }
 
   useEffect(() => {
     loading();
@@ -79,6 +97,7 @@ function TodoProvider(props: any) {
       })
       .catch((err) => {
         console.error(err);
+        onError(err);
       });
   }, []);
 
@@ -102,15 +121,7 @@ function TodoProvider(props: any) {
       })
       .catch((err) => {
         console.error(err);
-        dispatch({
-          type: "ERROR",
-          payload: {
-            loading: false,
-            error: err?.response?.data
-              ? err.response.data
-              : "Something Went Wrong",
-          },
-        });
+        onError(err);
         options && options.onError && options.onError(err?.response);
       });
   };
@@ -133,15 +144,7 @@ function TodoProvider(props: any) {
       })
       .catch((err) => {
         console.error(err.response);
-        dispatch({
-          type: "ERROR",
-          payload: {
-            loading: false,
-            error: err?.response?.data
-              ? err.response.data
-              : "Something Went Wrong",
-          },
-        });
+        onError(err);
         options && options.onError && options.onError(err?.response);
       });
   };
@@ -165,15 +168,7 @@ function TodoProvider(props: any) {
       })
       .catch((err) => {
         console.error(err.response);
-        dispatch({
-          type: "ERROR",
-          payload: {
-            loading: false,
-            error: err?.response?.data
-              ? err.response.data
-              : "Something Went Wrong",
-          },
-        });
+        onError(err);
         options && options.onError && options.onError(err?.response);
       });
   };

@@ -51,11 +51,12 @@ export default function Todo() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider", display: "flex" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          variant="fullWidth"
         >
           <Tab label="Open Todo" {...a11yProps(0)} />
           <Tab label="Pending Todo" {...a11yProps(1)} />

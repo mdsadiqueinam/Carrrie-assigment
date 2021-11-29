@@ -12,7 +12,6 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-Before starting the development or build app make sure the `lib` folder contains the `id_rsa_priv.pem` and `id_rsa_pub.pem` files if not please run the `generateKeypair.js` file in `lib` folder it will create both the `.pem` files.
 
 please add `mongodb` uri with name `ATLAS_URI` in `.env` file
 

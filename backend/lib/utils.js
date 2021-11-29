@@ -2,9 +2,15 @@ const crypto = require('crypto');
 const jsonwebtoken = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
+const genKeyPair = require('./generateKeypair');
 
-const pathToPrivKey = path.join(__dirname, '../../lib', 'id_rsa_priv.pem');
-const pathToPubKey = path.join(__dirname, '../../lib', 'id_rsa_pub.pem');
+const pathToPrivKey = path.join(__dirname, './', 'id_rsa_priv.pem');
+const pathToPubKey = path.join(__dirname, './', 'id_rsa_pub.pem');
+
+if (!fs.existsSync(pathToPrivKey) || !fs.existsSync(pathToPubKey)) {
+  genKeyPair.genKeyPair();
+}
+
 const PRIV_KEY = fs.readFileSync(pathToPrivKey, 'utf8');
 const PUB_KEY = fs.readFileSync(pathToPubKey, 'utf8');
 

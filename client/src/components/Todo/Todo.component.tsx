@@ -1,11 +1,10 @@
 import { SyntheticEvent, useState } from "react";
 import TodoWithData from "./TodoWithData.component";
-import { Box, LinearProgress, Tabs, Tab, Fab, Button } from "@mui/material";
+import { Box, LinearProgress, Tabs, Tab, Fab } from "@mui/material";
 import TabPanel from "components/Tabs/TabPanel.component";
 import AddIcon from "@mui/icons-material/Add";
 import TodoFormDialog from "./TodoFormDialog.component";
 import { useTodo } from "context/Todo.context";
-import { useAuth } from "context/Auth.context";
 import { Status } from "interface/status.enum";
 import { ITodo } from "interface/Todo.interface";
 import { Priority } from "interface/priority.enum";
@@ -28,7 +27,6 @@ const emptyTodo: ITodo = {
 
 export default function Todo() {
   const { loading } = useTodo();
-  const { logout } = useAuth();
   const [value, setValue] = useState(0);
   const [todo, setTodo] = useState(null as ITodo | null);
 
@@ -53,7 +51,7 @@ export default function Todo() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ borderBottom: 1, borderColor: "divider", display: "flex" }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -62,10 +60,6 @@ export default function Todo() {
           <Tab label="Open Todo" {...a11yProps(0)} />
           <Tab label="Pending Todo" {...a11yProps(1)} />
           <Tab label="Closed Todo" {...a11yProps(2)} />
-
-          <Button variant="text" sx={{ marginLeft: "auto" }} onClick={logout}>
-            Logout
-          </Button>
         </Tabs>
       </Box>
       {loading && <LinearProgress color="secondary" />}
